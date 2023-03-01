@@ -25,11 +25,21 @@ export class CandidatesComponent implements OnInit {
 
   // Code the addToCrew function here:
   addToCrew(person:object){
-    this.crew.push(person)
+    if(this.crew.includes(person)){
+      return false
+    }else{
+      this.crew.push(person)
+    }
+  
   }
 
 
   // BONUS: Code the changeMissionName function here:
+
+  changeMissionName(newName: string){
+    this.missionName= newName;
+
+  }
 
 
 }

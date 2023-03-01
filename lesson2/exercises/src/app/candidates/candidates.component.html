@@ -1,5 +1,5 @@
 <div class="container">
-    <h2 class="centered">Mission Name: {{missionName}}</h2>
+    <h2 class="centered" *ngIf = "!editMissionName; else editMission" (click)="editMissionName = true">Mission Name: {{missionName}}</h2>
     <br>
     <div class="row justify-content-center">
         <div class="candidates col-3">
@@ -28,17 +28,18 @@
         <div class="crew col-3">
             <h2>Selected Crew</h2>
             <ul>
-                <li *ngFor="let selectedCrew of crew">{{selectedCrew.name}}</li>
+                <li *ngFor="let selectedCrew of crew" >{{selectedCrew.name}}</li>
             </ul>
             <!-- Add a "Clear Crew List" button here. -->
-            <button *ngIf="!crew.length === 0 ;else show">Clear Crew List</button>
             <!-- <button #show >Clear Crew List</button> -->
+            <button *ngIf="crew.length > 0 " (click)="crew =[]">Clear Crew List</button>
+
         </div>
     </div>
     <hr>
     <div class = 'centered'>
         <button (click)="true; selected=''">Clear Data & Image</button>
-        <button (click)="addToCrew(selected)">Send on Mission</button>
+        <button  *ngIf="selected && !crew.includes(selected) && crew.length < 3" (click)="addToCrew(selected)" >Send on Mission</button>
         <!-- Add a "Send on Mission" button here. -->
     </div>
 </div>
@@ -48,6 +49,7 @@
     <h2 class="centered">
         Mission Name:
         <!-- Add a keyup.enter event that calls the changeMissionName function. -->
-        <input #newName type="text"/>
+        <input #newName (keyup.enter)="changeMissionName(newName.value); editMissionName = false" type="text"/>
+        
     </h2>
 </ng-template>
